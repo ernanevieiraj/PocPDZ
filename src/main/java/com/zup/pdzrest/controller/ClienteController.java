@@ -39,9 +39,9 @@ public class ClienteController {
     }
 
     @DeleteMapping(path = "/{id}")
-    public String deletarCliente(@PathVariable @Valid Long id){
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deletarCliente(@PathVariable @Valid Long id){
         clienteRepository.deleteById(id);
-        return "Resource deleted successfully";
     }
 
 
