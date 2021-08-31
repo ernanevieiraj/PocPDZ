@@ -1,6 +1,8 @@
 package com.zup.pdzrest.Model;
 
 
+import com.zup.pdzrest.functions.Functions;
+
 import javax.persistence.*;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Email;
@@ -21,12 +23,23 @@ public class Cliente implements Serializable {
     private String nome;
 
     @DecimalMin(value = "1")
-    @NotNull(message = "Salario nao deve estar em branco")
+    @NotNull(message = "Salario não deve estar em branco.")
     private BigDecimal salario;
 
-    @Email(message = "Email nao esta no formato correto")
-    @NotNull(message = "Email nao deve ser Nulo")
+    @Email(message = "Email não esta no formato correto.")
+    @NotBlank(message = "Email não deve estar em branco.")
     private String email;
+
+    public String getSegmento() {
+        return segmento;
+    }
+
+    public void setSegmento() {
+
+        this.segmento = String.valueOf(Functions.defineSegmento(getSalario().doubleValue()));
+    }
+
+    private String segmento;
 
     public String getEmail() {
         return email;

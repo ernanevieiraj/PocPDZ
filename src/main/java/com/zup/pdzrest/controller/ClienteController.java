@@ -1,15 +1,16 @@
 package com.zup.pdzrest.controller;
 
 import com.zup.pdzrest.Model.Cliente;
+import com.zup.pdzrest.functions.Functions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import com.zup.pdzrest.repository.ClienteRepository;
 
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
+
 
 //Classe que recebe requisições
 @RestController
@@ -35,6 +36,7 @@ public class ClienteController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Cliente adicionarCliente(@RequestBody @Valid Cliente cliente){
+        cliente.setSegmento();
         return clienteRepository.save(cliente);
     }
 
@@ -44,9 +46,9 @@ public class ClienteController {
         clienteRepository.deleteById(id);
     }
 
-
     @PutMapping
     public Cliente atualizarCliente(@RequestBody @Valid Cliente cliente){
+        cliente.setSegmento();
         return clienteRepository.save(cliente);
     }
 
