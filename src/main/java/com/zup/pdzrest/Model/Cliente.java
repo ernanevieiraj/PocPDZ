@@ -2,6 +2,7 @@ package com.zup.pdzrest.Model;
 
 
 import com.zup.pdzrest.functions.Functions;
+import org.hibernate.validator.constraints.br.CPF;
 
 import javax.persistence.*;
 import javax.validation.constraints.DecimalMin;
@@ -14,6 +15,8 @@ import java.math.BigDecimal;
 @Entity
 @Table(name = "Cliente")
 public class Cliente implements Serializable {
+    public Cliente() {
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -26,17 +29,19 @@ public class Cliente implements Serializable {
     @NotNull(message = "Salario não deve estar em branco.")
     private BigDecimal salario;
 
+
     @Email(message = "Email não esta no formato correto.")
     @NotBlank(message = "Email não deve estar em branco.")
     private String email;
+
 
     public String getSegmento() {
         return segmento;
     }
 
     public void setSegmento() {
-
-        this.segmento = String.valueOf(Functions.defineSegmento(getSalario().doubleValue()));
+        String segmento = String.valueOf(Functions.defineSegmento(getSalario().doubleValue()));
+        this.segmento = segmento;
     }
 
     private String segmento;
